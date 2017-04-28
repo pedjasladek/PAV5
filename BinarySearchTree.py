@@ -145,20 +145,26 @@ class Tree:
     # Methode for finding node successor
 
     def tree_succesor(self, node) :
-        if(node.r != None) :
-            return self.tree_minimum(node.r)
-        while(node.p != None and node == node.p.r) :
-            node = node.p
-        return node.p
+        if(node != None or node != self.tree_maximum(node)) :
+            if(node.r != None) :
+                return self.tree_minimum(node.r)
+            while(node.p != None and node == node.p.r) :
+                node = node.p
+            return node.p
+        else:
+            return None
 
     # Methode for finding node ancesstor
 
     def tree_ancestor(self, node) :
-        if(node.l != None) :
-            return self.tree_maximum(node.l)
-        while(node.p != None and node == node.p.l) :
-            node = node.p
-        return node.p
+        if(node != None or node != self.tree_minimum(node)) :
+            if(node.l != None) :
+               return self.tree_maximum(node.l)
+            while(node.p != None and node == node.p.l) :
+                node = node.p
+            return node.p
+        else:
+            return None
 
     # Methode transplant
 
@@ -410,8 +416,10 @@ current = tree.iterative_tree_search(tree.root,A[4])
 
 successor = tree.tree_succesor(current)
 
-print("Successor of node", current.data.value, current.data.char," is", successor.data.value, successor.data.char)
-
+if(successor != None):
+    print("Successor of node", current.data.value, current.data.char," is", successor.data.value, successor.data.char)
+else :
+    print("Node ", current.data.value, " doesn't have successor")
 print  
 print("####################################################################################")
 print
@@ -428,7 +436,10 @@ current_a = tree.tree_search(tree.root,A[7])
 
 ancestor = tree.tree_ancestor(current_a)
 
-print("Ancestor of node", current_a.data.value, current_a.data.char," is", ancestor.data.value, ancestor.data.char)
+if(ancestor != None):
+    print("Ancestor of node", current_a.data.value, current_a.data.char," is", ancestor.data.value, ancestor.data.char)
+else :
+    print("Node ",current_a.data.value ," doesn't have ancestor")
 
 print  
 print("####################################################################################")
